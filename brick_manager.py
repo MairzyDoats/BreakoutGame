@@ -1,7 +1,6 @@
 from turtle import Turtle
 
 COLORS = ["Green", "Yellow", "Red", "Purple"]
-NUMBER_OF_WALLS = 3
 
 
 class BrickManager:
@@ -9,14 +8,14 @@ class BrickManager:
     def __init__(self):
         self.all_bricks = []
 
-    def create_walls(self):
+    def create_walls(self, level):
         color_index = 0
         x = -250
-        y = 300
-        for wall in range(NUMBER_OF_WALLS):
-            for i in range(26):
+        y = 250
+        for wall in range(level):
+            for i in range(14):
                 new_brick = Turtle()
-                new_brick.shapesize(stretch_wid=1, stretch_len=2)
+                new_brick.shapesize(stretch_wid=2, stretch_len=4)
                 new_brick.penup()
                 new_brick.hideturtle()
                 new_brick.shape("square")
@@ -27,11 +26,10 @@ class BrickManager:
                 new_brick.showturtle()
                 new_brick.is_intact = True
                 self.all_bricks.append(new_brick)
-                x = x + 40
-                if i == 12:
+                x = x + 80
+                if i == 6:
                     x = -250
-                    y -= 20
+                    y -= 40
             x = -250
-            y -= 40
+            y -= 60
             color_index += 1
-        print(self.all_bricks)

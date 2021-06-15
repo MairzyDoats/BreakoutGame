@@ -20,6 +20,11 @@ class Paddle(turtle.Turtle):
 
     def set_coordinates(self, event):
         self.x = event.x
+        if self.x > 540:
+            self.x = 540
+        elif self.x < 50:
+            self.x = 50
 
     def run(self):
         self.setposition(self.x - 300, -300)
+

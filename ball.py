@@ -1,9 +1,10 @@
 from turtle import Turtle
+import random
 
 
 class Ball(Turtle):
 
-    def __init__(self, position, screen):
+    def __init__(self):
         super().__init__()
         self.hideturtle()
         self.shape("circle")
@@ -11,9 +12,9 @@ class Ball(Turtle):
         self.penup()
         self.time_sleep = 0.05
         self.speed("fastest")
-        self.goto(position)
+        self.goto(0, -240)
         self.showturtle()
-        self.x_move = 10
+        self.x_move = random.choice([-10, -8, 8, 10])
         self.y_move = 10
 
     def move(self):
@@ -26,3 +27,10 @@ class Ball(Turtle):
 
     def bounce_y(self):
         self.y_move *= -1
+
+    def reset(self):
+        self.hideturtle()
+        self.goto(0, -240)
+        if self.y_move < 0:
+            self.y_move *= -1
+        self.showturtle()
