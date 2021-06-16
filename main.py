@@ -5,7 +5,6 @@ from brick_manager import BrickManager
 from scoreboard import Scoreboard
 import time
 
-PADDLE_POSITION = (0, -300)
 PADDLE_WIDTH = 50
 PADDLE_HEIGHT = 20
 
@@ -22,7 +21,7 @@ screen.tracer(0)
 brick_manager = BrickManager()
 
 ball = Ball()
-paddle = Paddle(PADDLE_POSITION, screen)
+paddle = Paddle(screen)
 
 scoreboard = Scoreboard()
 
@@ -38,6 +37,7 @@ while new_game:
     brick_manager.create_walls(level)
     destroyed_bricks = []
     speed_factor = 0.03
+    scoreboard.ready_display()
 
     while is_game_on:
         paddle.run()
@@ -80,8 +80,8 @@ while new_game:
                 for brick in brick_manager.all_bricks:
                     brick.hideturtle()
                 brick_manager.all_bricks = []
-                scoreboard.game_over_screen()
                 is_game_on = False
+                scoreboard.game_over_screen()
             ball.reset()
             screen.update()
             time.sleep(1)
@@ -98,4 +98,17 @@ while new_game:
             scoreboard.update_points(300)
             ball.reset()
             screen.update()
-            time.sleep(1)
+            scoreboard.ready_display()
+    not_answered = True
+    while not_answered:
+        answer = screen.textinput("Game Over", "\nDo you want to play again? \nYes / No")
+        if answer is None or answer.lower().startswith('n'):
+            new_game = False
+            not_answered = False
+            screen.clear()
+            screen.bye()
+        elif answer.lower() == "yes":
+            not_answered = False
+        else:
+            pass
+

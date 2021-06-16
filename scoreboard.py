@@ -1,4 +1,5 @@
 from turtle import Turtle
+import time
 
 
 class Scoreboard(Turtle):
@@ -31,3 +32,17 @@ class Scoreboard(Turtle):
     def game_over_screen(self):
         self.goto(0, 0)
         self.write(arg="GAME OVER", align="center", font=("Bebas Neue", 40, "normal"))
+
+    def ready_display(self):
+        self.clear()
+        self.goto(0, 0)
+        self.write(arg="Ready?", align="center", font=("Bebas Neue", 40, "normal"))
+        time.sleep(0.5)
+        self.clear()
+        self.write(arg="set...", align="center", font=("Bebas Neue", 40, "normal"))
+        time.sleep(0.5)
+        self.clear()
+        self.write(arg="Go!", align="center", font=("Bebas Neue", 40, "normal"))
+        time.sleep(0.2)
+        self.clear()
+        self.update_scoreboard()
