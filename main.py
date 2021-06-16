@@ -34,6 +34,8 @@ while new_game:
     level = 1
     score = 0
     lives = 3
+    points_per_brick = 20
+    points_per_level = 300
     brick_manager.create_walls(level)
     destroyed_bricks = []
     speed_factor = 0.03
@@ -65,7 +67,7 @@ while new_game:
                 brick.hideturtle()
                 brick.is_intact = False
                 destroyed_bricks.append(brick)
-                scoreboard.update_points(20)
+                scoreboard.update_points(points_per_brick)
         if ball.xcor() >= 290 or ball.xcor() <= - 290:
             ball.bounce_x()
         elif ball.ycor() >= 390:
@@ -95,14 +97,17 @@ while new_game:
                 level += 1
                 speed_factor -= 0.002
             brick_manager.create_walls(level)
-            scoreboard.update_points(300)
+            scoreboard.update_points(points_per_level)
+            points_per_level += round(points_per_level / 10)
+            points_per_brick += round(points_per_brick / 5)
             ball.reset()
             screen.update()
             scoreboard.ready_display()
+
     not_answered = True
     while not_answered:
         answer = screen.textinput("Game Over", "\nDo you want to play again? \nYes / No")
-        if answer is None or answer.lower().startswith('n'):
+        if answer is None or answer.lower() == "no":
             new_game = False
             not_answered = False
             screen.clear()
